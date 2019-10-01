@@ -1,0 +1,14 @@
+.Square {
+  display:inline-block;
+  color:#4D4D4D;
+  width:150px;
+  height:150px;
+  font-size:35px;
+  text-align:center;
+  line-height:150px;
+  background-color:white;
+  cursor:pointer;
+  border:2px solid #eee;
+  border-color:transparent #eee #eee transparent;
+}
+.Square:focus {outline:0;}

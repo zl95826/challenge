@@ -1,0 +1,11 @@
+.Row:nth-of-type(3n) button{
+    border-color:transparent #eee transparent transparent;
+}
+.Row button:nth-of-type(3n) {
+    border:2px solid #eee;
+    border-color:transparent transparent #eee transparent;
+}
+  .Row:nth-of-type(3n) button:last-of-type {
+    border:2px solid #eee;
+    border-color:transparent; 
+}
