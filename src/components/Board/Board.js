@@ -4,19 +4,19 @@ import Square from '../Square/Square';
 
 const Board=(props)=><div>
                         <section className={style.Row}>
-                            <Square value={0} />
-                            <Square value={1} />
-                            <Square value={2} />
+                            <Square value={props.squares[0]} index={0} click={props.click}/>
+                            <Square value={props.squares[1]} index={1} click={props.click}/>
+                            <Square value={props.squares[2]} index={2} click={props.click}/>
                         </section>
                         <section className={style.Row}>
-                            <Square value={3} />
-                            <Square value={4} />
-                            <Square value={5} />
+                            <Square value={props.squares[3]} index={3} click={props.click}/>
+                            <Square value={props.squares[4]} index={4} click={props.click}/>
+                            <Square value={props.squares[5]} index={5} click={props.click}/>
                         </section>
                         <section className={style.Row}>
-                            <Square value={6} />
-                            <Square value={7} />
-                            <Square value={8} />
+                            <Square value={props.squares[6]} index={6} click={props.click}/>
+                            <Square value={props.squares[7]} index={7} click={props.click}/>
+                            <Square value={props.squares[8]} index={8} click={props.click}/>
                         </section>
                     </div>
 
