@@ -16,5 +16,6 @@
   font-size:24px;
   margin-top:80px;
   border-radius:5px;
+  cursor:pointer;
 }
 .Replay:focus {outline:0;}
