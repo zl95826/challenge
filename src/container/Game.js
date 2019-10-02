@@ -19,8 +19,9 @@ class Game extends Component {
             newArr[e.target.id]='X';
             this.setState({squares:newArr},()=>{
                 this.turnSquare('X');//each time clicking, you need to check if it wins, if yes end the game, otherwise check if it draw
-                if(!this.checkDraw()) {//if no draw, AI moving
-                    console.log('not a draw');
+                if(!this.checkDraw()) {//if not a draw, AI moving
+                   this.opponentMove();
+                   this.turnSquare('O');
                     }
                 }
             ); 
@@ -50,13 +51,27 @@ class Game extends Component {
     }
     winGame=(player)=>player.name==='X'?'You':'AI';
     checkDraw=()=>{
-        if(this.availableSquare().length==0) { this.setState({click:false,draw:true}); return true; }
+        if(this.availableSquares().length==0) { this.setState({click:false,draw:true}); return true; }
         return false;
     }
-    availableSquare=()=>this.state.squares.filter(square=>!square);
+    availableSquares=()=>this.state.squares.reduce((total,cur,index)=>(!cur)?total.concat(index):total,[]);
 //------------------------------AI section-----------------------------------
     opponentMove=()=> {
-        let bestSpot;
+        const arr=[...this.state.squares];
+        const willAiWin=this.checkWhoWillWin('O');
+        if(willAiWin) {arr[willAiWin.position]='O';}
+        else {
+            const willHumanWin=this.checkWhoWillWin('X');
+            if(willHumanWin) {arr[willHumanWin.position]='O';}
+            else {
+                const avaiArr=this.availableSquares();
+                if(arr[4]==='O') {
+                    
+                }
+            }
+        }
+        this.setState({squares:arr});
+        
     }
     checkWhoWillWin=(player)=>{
         let playerArr=this.state.squares.reduce((total,val,index)=>val===player?total.concat(index):total,[]);
@@ -77,13 +92,13 @@ class Game extends Component {
         return nextWin;
     }
 //---------------------------------end----------------------------------------
-    render() {console.log(this.state.winnerArr);
+    render() {console.log(this.availableSquares());
         const clickEvent=this.state.click?this.clickSquare:null;
         let winner=this.state.winner?<span style={{color:'#2ecc71'}}>{this.winGame(this.state.winner)} wins! Game ends.</span>:null;
         return <div className={styles.Board}>
                     <h1>Tic Tac Toe</h1>
                     <Board squares={this.state.squares} click={clickEvent} winnerItems={this.state.winnerArr} />
-                    <p>{winner} {this.state.draw?`It's a draw`:null}</p>
+                    <p>{winner} {this.state.draw?`It's a draw`:`Pick a square.`}</p>
                     <button className={styles.Replay} onClick={this.clickReplay}>Replay</button>  
                 </div>;
     }
