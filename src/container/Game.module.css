@@ -9,13 +9,13 @@
   letter-spacing:1.5px;
 }
 .Board p{
-  margin-top:50px;
-  margin-bottom:50px;
+  height:100px;
+  line-height:100px;
   font-size:24px;
   letter-spacing:1.2px;
 }
 .Replay {
-  padding:20px 50px;
+  padding:20px 60px;
   border:none;
   background:#2ecc71;
   color:#fff;

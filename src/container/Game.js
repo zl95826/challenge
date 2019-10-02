@@ -26,7 +26,7 @@ class Game extends Component {
     }
     clickReplay=()=>{
         const newArr=Array(9).fill(null);
-        this.setState({squares:newArr,winnerArr:[],click:true}); 
+        this.setState({squares:newArr,winnerArr:[],click:true,winner:null}); 
     }
     turnSquare=(player)=>{
         let winnerObj=this.checkWin(this.state.squares,player);
