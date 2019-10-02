@@ -9,7 +9,8 @@ class Game extends Component {
             squares:Array(9).fill(null),
             winnerArr:[],
             click:true,
-            winner:null
+            winner:null,
+            draw:false
         }
     }
     clickSquare=(e)=>{
@@ -17,7 +18,10 @@ class Game extends Component {
         if(!newArr[e.target.id]) {
             newArr[e.target.id]='X';
             this.setState({squares:newArr},()=>{
-                this.turnSquare('X');
+                this.turnSquare('X');//each time clicking, you need to check if it wins, if yes end the game, otherwise check if it draw
+                if(!this.checkDraw()) {
+                    console.log('not a draw');
+                    }
                 }
             ); 
         }
@@ -45,6 +49,11 @@ class Game extends Component {
         return whoWon;
     }
     winGame=(player)=>player.name==='X'?'You':'AI';
+    checkDraw=()=>{
+        if(this.availableSquare().length==0) { this.setState({click:false,draw:true}); return true; }
+        return false;
+    }
+    availableSquare=()=>this.state.squares.filter(square=>!square);
 
     render() {console.log(this.state.winnerArr);
         const clickEvent=this.state.click?this.clickSquare:null;
@@ -52,7 +61,7 @@ class Game extends Component {
         return <div className={styles.Board}>
                     <h1>Tic Tac Toe</h1>
                     <Board squares={this.state.squares} click={clickEvent} winnerItems={this.state.winnerArr} />
-                    <p>{winner}</p>
+                    <p>{winner} {this.state.draw?`It's a draw`:null}</p>
                     <button className={styles.Replay} onClick={this.clickReplay}>Replay</button>  
                 </div>;
     }
