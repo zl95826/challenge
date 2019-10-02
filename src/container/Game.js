@@ -64,17 +64,29 @@ class Game extends Component {
             const willHumanWin=this.checkWhoWillWin('X');
             if(willHumanWin) {arr[willHumanWin.position]='O';}
             else {
-                const avaiArr=this.availableSquares();
-                if(arr[4]==='O') {
-                    
+                if(!arr[4]) {arr[4]='O';}
+                else {
+                    const avaiArr=this.availableSquares();
+                    if(arr[4]==='O') {
+                        const newArr=avaiArr.filter(cur=>cur%2>0);
+                        if(newArr.length>0) {arr[newArr[0]]='O';}
+                        else {arr[avaiArr[0]]='O';}
+                    }
+                    else {
+                        const newArr=avaiArr.filter(cur=>cur%2===0);
+                        if(newArr.length>0) {arr[newArr[0]]='O';}
+                        else {arr[avaiArr[0]]='O';}
+                    }
                 }
+               
+               
             }
         }
         this.setState({squares:arr});
         
     }
     checkWhoWillWin=(player)=>{
-        let playerArr=this.state.squares.reduce((total,val,index)=>val===player?total.concat(index):total,[]);
+        let playerArr=this.state.squares.reduce((total,val,index)=>(val===player)?total.concat(index):total,[]);
         let nextWin=null;
         for (let elem of winCombos) {
             let count=0, index=0;
@@ -98,7 +110,7 @@ class Game extends Component {
         return <div className={styles.Board}>
                     <h1>Tic Tac Toe</h1>
                     <Board squares={this.state.squares} click={clickEvent} winnerItems={this.state.winnerArr} />
-                    <p>{winner} {this.state.draw?`It's a draw`:`Pick a square.`}</p>
+                    <p>{winner} {this.state.draw?`It's a draw`:null}</p>
                     <button className={styles.Replay} onClick={this.clickReplay}>Replay</button>  
                 </div>;
     }
