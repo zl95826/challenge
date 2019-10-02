@@ -8,7 +8,8 @@ class Game extends Component {
         this.state={
             squares:Array(9).fill(null),
             winnerArr:[],
-            click:true
+            click:true,
+            winner:null
         }
     }
     clickSquare=(e)=>{
@@ -28,8 +29,8 @@ class Game extends Component {
         this.setState({squares:newArr,winnerArr:[],click:true}); 
     }
     turnSquare=(player)=>{
-        let winner=this.checkWin(this.state.squares,player);
-        if(winner) {this.winGame(winner); this.setState({winnerArr:winCombos[winner.index],click:false});}
+        let winnerObj=this.checkWin(this.state.squares,player);
+        if(winnerObj) {this.setState({winnerArr:winCombos[winnerObj.index],click:false,winner:winnerObj});}
     }
     checkWin=(board,player)=>{
         let playerArr=board.reduce((total,val,index)=>val===player?total.concat(index):total,[]);
@@ -43,16 +44,16 @@ class Game extends Component {
         }
         return whoWon;
     }
-    winGame=(winner)=> {
-       console.log(winner.name,winner.index);
-       
-    }
+    winGame=(player)=>player.name==='X'?'You':'AI';
+
     render() {console.log(this.state.winnerArr);
         const clickEvent=this.state.click?this.clickSquare:null;
+        let winner=this.state.winner?`${this.winGame(this.state.winner)} wins! Game ends.`:null;
         return <div className={styles.Board}>
                     <h1>Tic Tac Toe</h1>
                     <Board squares={this.state.squares} click={clickEvent} winnerItems={this.state.winnerArr} />
-                    <button className={styles.Replay} onClick={this.clickReplay}>Replay</button>
+                    <p>{winner}</p>
+                    <button className={styles.Replay} onClick={this.clickReplay}>Replay</button>  
                 </div>;
     }
 

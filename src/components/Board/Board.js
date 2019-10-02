@@ -3,7 +3,7 @@ import style from './Board.module.css';
 import Square from '../Square/Square';
 
 const Board=(props)=>{
-        const renderSquare=(i)=>{ console.log('B '+props.winnerItems);
+        const renderSquare=(i)=>{
             let style=null;
             if(props.winnerItems.length>0 && props.winnerItems.indexOf(i)>-1) {style={color:'#2ecc71'}}
             return <Square winnerColor={style} value={props.squares[i]} index={i} click={props.click} />
