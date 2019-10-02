@@ -20,7 +20,7 @@ class Game extends Component {
             this.setState({squares:newArr},()=>{
                 this.turnSquare('X');//each time clicking, you need to check if it wins, if yes end the game, otherwise check if it draw
                 if(!this.checkDraw()) {//if not a draw, AI moving
-                   this.opponentMove();
+                   this.opponentMove();console.log(this.state.squares);
                    this.turnSquare('O');
                     }
                 }
@@ -31,11 +31,11 @@ class Game extends Component {
     }
     clickReplay=()=>{
         const newArr=Array(9).fill(null);
-        this.setState({squares:newArr,winnerArr:[],click:true,winner:null}); 
+        this.setState({squares:newArr,winnerArr:[],click:true,winner:null,draw:false}); 
     }
     turnSquare=(player)=>{
         let winnerObj=this.checkWin(player);
-        if(winnerObj) {this.setState({winnerArr:winCombos[winnerObj.index],click:false,winner:winnerObj});}
+        if(winnerObj) {console.log('test '+winCombos[winnerObj.index]);this.setState({winnerArr:winCombos[winnerObj.index],click:false,winner:winnerObj});}
     }
     checkWin=(player)=>{
         let playerArr=this.state.squares.reduce((total,val,index)=>val===player?total.concat(index):total,[]);
@@ -91,11 +91,11 @@ class Game extends Component {
         for (let elem of winCombos) {
             let count=0, index=0;
             for (let i=0;i<elem.length;i++) {
-                if(playerArr.indexOf(i)>-1) {count++;}
+                if(playerArr.indexOf(elem[i])>-1) {count++;}
                 else {index=i;}
                 if(count==2) {
                     if(!this.state.squares[elem[index]]) {//check if it's available
-                        nextWin={position:elem[index]};
+                        nextWin={position:elem[index]};console.log('next '+nextWin.position);
                         break;
                     }
                 }
