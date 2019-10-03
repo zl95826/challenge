@@ -106,12 +106,13 @@ class Game extends Component {
 //---------------------------------end----------------------------------------
     render() {
         const clickEvent=this.state.click?this.clickSquare:null;
-        let winner=this.state.winner?<span style={{color:'#2ecc71'}}>{this.winGame(this.state.winner)} wins! Game ends.</span>:null;
+        const guide=this.state.click?'Pick up a square': 'Game ends.';
+        let winner=this.state.winner?<span style={{color:'#2ecc71'}}>{this.winGame(this.state.winner)} wins!</span>:null;
         return <div className={styles.Board}>
                     <h1>Tic Tac Toe</h1>
+                    <h2>{guide}</h2>
                     <Board squares={this.state.squares} click={clickEvent} winnerItems={this.state.winnerArr} />
-                    <p>{winner}</p>
-                    <p>{this.state.draw?`It's a draw. Game ends.`:null}</p>
+                    <p>{winner} {this.state.draw?`It's a draw.`:null}</p>
                     <button className={styles.Replay} onClick={this.clickReplay}>Replay</button>  
                 </div>;
     }
