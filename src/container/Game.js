@@ -57,15 +57,18 @@ class Game extends Component {
         const willAiWin=this.checkWhoWillWin('O');
         const willHumanWin=this.checkWhoWillWin('X');
         const avaiArr=this.availableSquares();
-        const newArr=avaiArr.filter(cur=>cur%2===0);//corner position array
+        const newArr=avaiArr.filter(cur=>cur%2===0);//available corner position array
         if(willAiWin) {arr[willAiWin.position]='O';}
         else if(willHumanWin) {arr[willHumanWin.position]='O';}
         else if(!arr[4]) {arr[4]='O';}
         else if(arr[4]==='X') {arr[newArr[0]]='O';}
-        else {
+        else {//what should do if the middle point is taken by Program
+            //decide when to take one of left-top, right-top, left-bottom and right-bottom positions
+            //the position should be availabe and has at least one Human neighbor 
             let corner=newArr.filter(val=>(this.findNeighbor(val).filter(val=>arr[val]==='X')).length>0);
             if(corner.length>0) {arr[corner[0]]='O';}
-            else {
+            else {//if no such corner position, find avaiable position in red cross direction
+                //otherwise, take the available position
                 const redCrossArr=avaiArr.filter(cur=>cur%2>0);
                 if(redCrossArr.length>0) {arr[redCrossArr[0]]='O';}
                 else {arr[avaiArr[0]]='O';}
