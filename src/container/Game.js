@@ -32,7 +32,7 @@ class Game extends Component {
     }
     turnSquare=(player)=>{
         let winnerObj=this.checkWin(player);
-        if(winnerObj) {console.log('winner '+winCombos[winnerObj.index]);this.setState({winnerArr:winCombos[winnerObj.index],click:false,winner:winnerObj});}
+        if(winnerObj) {this.setState({winnerArr:winCombos[winnerObj.index],click:false,winner:winnerObj});}
     }
     checkWin=(player)=>{
         let playerArr=this.state.squares.reduce((total,val,index)=>val===player?total.concat(index):total,[]);
@@ -57,22 +57,28 @@ class Game extends Component {
         const willAiWin=this.checkWhoWillWin('O');
         const willHumanWin=this.checkWhoWillWin('X');
         const avaiArr=this.availableSquares();
-        const newArr=avaiArr.filter(cur=>cur%2===0);
+        const newArr=avaiArr.filter(cur=>cur%2===0);//corner position array
         if(willAiWin) {arr[willAiWin.position]='O';}
         else if(willHumanWin) {arr[willHumanWin.position]='O';}
         else if(!arr[4]) {arr[4]='O';}
         else if(arr[4]==='X') {arr[newArr[0]]='O';}
         else {
-            const cornerArrGroup=[[0,1,3],[1,2,5],[3,6,7],[5,7,8]];
-            const positionObj=this.findPosition('X',cornerArrGroup);
-            if(positionObj) {arr[positionObj.position]='O';}
+            let corner=newArr.filter(val=>(this.findNeighbor(val).filter(val=>arr[val]==='X')).length>0);
+            if(corner.length>0) {arr[corner[0]]='O';}
             else {
                 const redCrossArr=avaiArr.filter(cur=>cur%2>0);
                 if(redCrossArr.length>0) {arr[redCrossArr[0]]='O';}
-                else {arr[avaiArr[0]]='O';}}
+                else {arr[avaiArr[0]]='O';}
+            }
         }
      return  arr;   
     }
+   
+    findNeighbor=(index)=>{
+        return [index-1,index+1,index-3,index+3].filter(val=>val>=0&&val<=8);
+    }
+    
+    
     findPosition=(player,arrGroup)=>{
         let positionObj=null;
         let playerArr=this.state.squares.reduce((total,val,index)=>(val===player)?total.concat(index):total,[]);
@@ -92,21 +98,6 @@ class Game extends Component {
         return positionObj;
     }
     checkWhoWillWin=(player)=>{
-       // let playerArr=this.state.squares.reduce((total,val,index)=>(val===player)?total.concat(index):total,[]);
-       // let nextWin=null;
-       // for (let elem of winCombos) {
-      //      let count=0, index=0;
-      //      for (let i=0;i<elem.length;i++) {
-     //           if(playerArr.indexOf(elem[i])>-1) {count++;}
-       //         else {index=i;}
-       //         if(count===2) {
-       //             if(!this.state.squares[elem[index]]) {//check if it's available
-       //                 nextWin={position:elem[index]};
-       //                 break;
-      //              }
-     //           }
-       //     }
-      //  }
         return this.findPosition(player,winCombos);
     }
 //---------------------------------end----------------------------------------
@@ -116,7 +107,8 @@ class Game extends Component {
         return <div className={styles.Board}>
                     <h1>Tic Tac Toe</h1>
                     <Board squares={this.state.squares} click={clickEvent} winnerItems={this.state.winnerArr} />
-                    <p>{winner} {this.state.draw?`It's a draw. Game ends.`:null}</p>
+                    <p>{winner}</p>
+                    <p>{this.state.draw?`It's a draw. Game ends.`:null}</p>
                     <button className={styles.Replay} onClick={this.clickReplay}>Replay</button>  
                 </div>;
     }
