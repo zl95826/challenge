@@ -61,7 +61,10 @@ class Game extends Component {
         if(willAiWin) {arr[willAiWin.position]='O';}
         else if(willHumanWin) {arr[willHumanWin.position]='O';}
         else if(!arr[4]) {arr[4]='O';}
-        else if(arr[4]==='X') {arr[newArr[0]]='O';}
+        else if(arr[4]==='X') {
+            if(newArr.length>0) {arr[newArr[0]]='O';}
+            else {arr[avaiArr[0]]='O';}
+        }
         else {//what should do if the middle point is taken by Program
             //decide when to take one of left-top, right-top, left-bottom and right-bottom positions
             //the position should be availabe and has at least one Human neighbor 
