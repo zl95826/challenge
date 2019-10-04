@@ -4,7 +4,7 @@ Tic Tac Toe Game built using React JS.
 
 ### `Live Demo`
 
-(https://zl95826.github.io/challenge/) to view it in the browser.
+https://zl95826.github.io/challenge/ to view it in the browser.
 
 ### `Usage`
 
