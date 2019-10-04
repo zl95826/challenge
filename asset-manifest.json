@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/challenge/static/css/main.9a8cb5c7.chunk.css",
+    "main.js": "/challenge/static/js/main.7839fb8d.chunk.js",
+    "main.js.map": "/challenge/static/js/main.7839fb8d.chunk.js.map",
+    "runtime-main.js": "/challenge/static/js/runtime-main.1c4276e7.js",
+    "runtime-main.js.map": "/challenge/static/js/runtime-main.1c4276e7.js.map",
+    "static/js/2.46f912d3.chunk.js": "/challenge/static/js/2.46f912d3.chunk.js",
+    "static/js/2.46f912d3.chunk.js.map": "/challenge/static/js/2.46f912d3.chunk.js.map",
+    "index.html": "/challenge/index.html",
+    "precache-manifest.babb30bf386dcbf130bbd48c4cd430ac.js": "/challenge/precache-manifest.babb30bf386dcbf130bbd48c4cd430ac.js",
+    "service-worker.js": "/challenge/service-worker.js",
+    "static/css/main.9a8cb5c7.chunk.css.map": "/challenge/static/css/main.9a8cb5c7.chunk.css.map"
+  }
+}
