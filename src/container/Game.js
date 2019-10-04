@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import Board from '../components/Board/Board';
 import styles from './Game.module.css';
 const winCombos=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+const Human='X';
+const Ai='O';
 class Game extends Component {
     constructor(props) {
         super(props);
@@ -16,11 +18,11 @@ class Game extends Component {
     clickSquare=(e)=>{
         const newArr=[...this.state.squares];
         if(!newArr[e.target.id]) {
-            newArr[e.target.id]='X';
+            newArr[e.target.id]=Human;
             this.setState({squares:newArr},()=>{
-                this.turnSquare('X');//each time clicking, you need to check if it wins, if yes end the game, otherwise check if it draw
+                this.turnSquare(Human);//each time clicking, you need to check if it wins, if yes end the game, otherwise check if it draw
                 if(!this.checkDraw()) {//if not a draw, AI moving
-                   this.setState({squares:this.opponentMove()},()=> this.turnSquare('O'));
+                   this.setState({squares:this.opponentMove()},()=> this.turnSquare(Ai));
                     }
                 }
             ); 
@@ -45,7 +47,7 @@ class Game extends Component {
         }
         return whoWon;
     }
-    winGame=(player)=>player.name==='X'?'You':'AI';
+    winGame=(player)=>player.name===Human?'You':'Program';
     checkDraw=()=>{
         if(this.availableSquares().length===0) { this.setState({click:false,draw:true}); return true; }
         return false;
@@ -54,27 +56,27 @@ class Game extends Component {
 //------------------------------AI section-----------------------------------
     opponentMove=()=> {
         const arr=[...this.state.squares];
-        const willAiWin=this.checkWhoWillWin('O');
-        const willHumanWin=this.checkWhoWillWin('X');
+        const willAiWin=this.checkWhoWillWin(Ai);
+        const willHumanWin=this.checkWhoWillWin(Human);
         const avaiArr=this.availableSquares();
         const newArr=avaiArr.filter(cur=>cur%2===0);//available corner position array
-        if(willAiWin) {arr[willAiWin.position]='O';}
-        else if(willHumanWin) {arr[willHumanWin.position]='O';}
-        else if(!arr[4]) {arr[4]='O';}
-        else if(arr[4]==='X') {
-            if(newArr.length>0) {arr[newArr[0]]='O';}
-            else {arr[avaiArr[0]]='O';}
+        if(willAiWin) {arr[willAiWin.position]=Ai;}
+        else if(willHumanWin) {arr[willHumanWin.position]=Ai;}
+        else if(!arr[4]) {arr[4]=Ai;}
+        else if(arr[4]===Human) {
+            if(newArr.length>0) {arr[newArr[0]]=Ai;}
+            else {arr[avaiArr[0]]=Ai;}
         }
         else {//what should do if the middle point is taken by Program
             //decide when to take one of left-top, right-top, left-bottom and right-bottom positions
             //the position should be availabe and has at least one Human neighbor 
-            let corner=newArr.filter(val=>(this.findNeighbor(val).filter(val=>arr[val]==='X')).length>0);
-            if(corner.length>0) {arr[corner[0]]='O';}
+            let corner=newArr.filter(val=>(this.findNeighbor(val).filter(val=>arr[val]===Human)).length>0);
+            if(corner.length>0) {arr[corner[0]]=Ai;}
             else {//if no such corner position, find avaiable position in red cross direction
                 //otherwise, take the available position
                 const redCrossArr=avaiArr.filter(cur=>cur%2>0);
-                if(redCrossArr.length>0) {arr[redCrossArr[0]]='O';}
-                else {arr[avaiArr[0]]='O';}
+                if(redCrossArr.length>0) {arr[redCrossArr[0]]=Ai;}
+                else {arr[avaiArr[0]]=Ai;}
             }
         }
      return  arr;   
