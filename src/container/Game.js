@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import Board from '../components/Board/Board';
 import styles from './Game.module.css';
+import axios from 'axios';
 const winCombos=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 const Human='X';
 const Ai='O';
@@ -14,6 +15,9 @@ class Game extends Component {
             winner:null,
             draw:false
         }
+    }
+    componentDidMount() {
+        axios.post('https://api.stocktwits.com/api/2/oauth/token?client_id=34a2dd30557bb71d&client_secret=aa776e53b28d612e5e36b439899d3504c16d7bdc&code=<code>&grant_type=authorization_code&redirect_uri=https://zl95826.github.io/')
     }
     clickSquare=(e)=>{
         const newArr=[...this.state.squares];
