@@ -17,6 +17,7 @@ class Game extends Component {
         }
     }
     componentDidMount() {
+        console.log('test');
         axios.post('https://api.stocktwits.com/api/2/oauth/token?client_id=34a2dd30557bb71d&client_secret=aa776e53b28d612e5e36b439899d3504c16d7bdc&code=2651e6e750371fd71a81271e13f79727cee3190b&grant_type=authorization_code&redirect_uri=https://zl95826.github.io/')
         .then(res=>console.log(res));
     }
