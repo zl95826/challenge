@@ -18,8 +18,8 @@ class Game extends Component {
     }
     componentDidMount() {
         console.log('test');
-        axios.post('https://api.stocktwits.com/api/2/streams/watchlist/2237624.json?access_token=447b63528dcc293c367d9c3aa46f6e364a98aa41')
-        .then(res=>console.log(res));
+        axios.get('https://api.stocktwits.com/api/2/streams/user/2956810.json')
+        .then(res=>console.log(res.data.user));
     }
     clickSquare=(e)=>{
         const newArr=[...this.state.squares];
