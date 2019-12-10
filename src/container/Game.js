@@ -18,7 +18,11 @@ class Game extends Component {
     }
     componentDidMount() {
         console.log('test');
-        axios.get('https://api.stocktwits.com/api/2/streams/user/2956810.json')
+        let myHeaders = new Headers({
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'text/plain'
+        });
+        axios.get('https://api.stocktwits.com/api/2/streams/user/2956810.json',{headers:myHeaders})
         .then(res=>console.log(res.data.user));
     }
     clickSquare=(e)=>{
