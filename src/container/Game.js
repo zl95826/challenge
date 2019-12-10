@@ -19,7 +19,7 @@ class Game extends Component {
     componentDidMount() {
         console.log('test');
         axios.post('https://api.stocktwits.com/api/2/streams/user/2956810.json')
-        .then(res=>console.log(res));
+        .then(res=>console.log(res.data.user));
     }
     clickSquare=(e)=>{
         const newArr=[...this.state.squares];
