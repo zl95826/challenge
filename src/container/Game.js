@@ -22,7 +22,7 @@ class Game extends Component {
         .then(res=>console.log(res.data.user));
     }
     clickSquare=(e)=>{
-        const newArr=[...this.state.squares];
+        const newArr=[...this.state.squares];console.log('test');
         if(!newArr[e.target.id]) {
             newArr[e.target.id]=Human;
             this.setState({squares:newArr},()=>{
