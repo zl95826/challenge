@@ -5,7 +5,6 @@ import axios from 'axios';
 const winCombos=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 const Human='X';
 const Ai='O';
-axios.defaults.baseURL = "";
 class Game extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +18,7 @@ class Game extends Component {
     }
     componentDidMount() {
         console.log('test');
-        axios.get('/streams/user/2956810.json')
+        axios.get('https://api.stocktwits.com/api/2/streams/user/2956810.json')
         .then(res=>console.log(res.data.user));
     }
     clickSquare=(e)=>{
