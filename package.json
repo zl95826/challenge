@@ -2,6 +2,7 @@
   "name": "challenge",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://api.stocktwits.com/api/2/streams",
   "homepage": "https://zl95826.github.io/challenge",
   "dependencies": {
     "gh-pages": "^2.1.1",
