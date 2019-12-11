@@ -32,5 +32,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy":"https://api.stocktwits.com/api/2/streams/"
+  "proxy":"https://api.stocktwits.com/api/2"
 }
