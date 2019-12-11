@@ -22,7 +22,7 @@ class Game extends Component {
         .then(res=>console.log(res.data.user));
     }
     clickSquare=(e)=>{
-        const newArr=[...this.state.squares];console.log('test');
+        const newArr=[...this.state.squares];
         if(!newArr[e.target.id]) {
             newArr[e.target.id]=Human;
             this.setState({squares:newArr},()=>{
@@ -115,7 +115,7 @@ class Game extends Component {
         return this.findPosition(player,winCombos);
     }
 //---------------------------------end----------------------------------------
-    render() {
+    render() {console.log('render');
         const clickEvent=this.state.click?this.clickSquare:null;
         const guide=this.state.click?'Pick up a square': 'Game ends.';
         let winner=this.state.winner?<span style={{color:'#2ecc71'}}>{this.winGame(this.state.winner)} wins!</span>:null;
