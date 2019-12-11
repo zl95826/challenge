@@ -18,9 +18,9 @@ class Game extends Component {
     }
     componentDidMount() {
         console.log('test');
-       /*
-        axios.get('https://api.stocktwits.com/api/2/streams/user/2956810.json',{headers:myHeaders})
-        .then(res=>console.log(res.data.user));*/
+       
+        axios.get('/user/2956810.json')
+        .then(res=>console.log(res.data.user));
     }
     clickSquare=(e)=>{
         const newArr=[...this.state.squares];
